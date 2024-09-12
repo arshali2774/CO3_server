@@ -13,7 +13,7 @@ if (!token) {
   throw new Error('BOT_TOKEN is missing in environment variables');
 }
 const bot = new TelegramBot(token, {
-  polling: true,
+  polling: process.env.NODE_ENV !== 'development',
 });
 const WEB_APP_URL = 'https://tap-me.netlify.app';
 bot.onText(/\/start/, async (msg) => {
