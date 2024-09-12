@@ -72,8 +72,9 @@ npm start
 ```
 
 2. The server will be running on http://localhost:4000.
-   > [!NOTE]
-   > Since the backend is deployed on Render, the first launch of the app may take around 50 seconds. If you do not see the results or encounter an error message like "Error: User data not found," please wait 1-2 minutes and try again.
+
+> [!NOTE]
+> Since the backend is deployed on Render, the first launch of the app may take around 50 seconds. If you do not see the results or encounter an error message like "Error: User data not found," please wait 1-2 minutes and try again.
 
 ## GraphQL Endpoints
 
