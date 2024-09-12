@@ -14,11 +14,10 @@
   "license": "ISC",
   "dependencies": {
     "@supabase/supabase-js": "^2.45.4",
-    "graphql": "^16.9.0",
-    "graphql-yoga": "^5.7.0",
     "@types/dotenv": "^8.2.0",
     "@types/node-telegram-bot-api": "^0.64.7",
-    "dotenv": "^16.4.5",
+    "graphql": "^16.9.0",
+    "graphql-yoga": "^5.7.0",
     "node-telegram-bot-api": "^0.66.0"
   },
   "devDependencies": {
