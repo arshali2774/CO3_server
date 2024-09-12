@@ -1,6 +1,6 @@
 import dotenv from 'dotenv';
 dotenv.config();
-import TelegramBot from 'node-telegram-bot-api';
+import TelegramBot, { Message } from 'node-telegram-bot-api';
 import { createServer } from 'http';
 import { createYoga } from 'graphql-yoga';
 import { schema } from './schema';
@@ -16,7 +16,7 @@ const bot = new TelegramBot(token, {
   polling: process.env.NODE_ENV !== 'development',
 });
 const WEB_APP_URL = 'https://tap-me.netlify.app';
-bot.onText(/\/start/, async (msg) => {
+bot.onText(/\/start/, async (msg: Message) => {
   const chatId = msg.chat.id;
   const firstName = msg.from?.first_name || '';
   const lastName = msg.from?.last_name || '';
