@@ -1,5 +1,5 @@
 import { createSchema } from 'graphql-yoga';
-import supabase from './dbConfig';
+import supabase from './dbConfig.js';
 
 export const schema = createSchema({
   typeDefs: `
@@ -19,7 +19,7 @@ export const schema = createSchema({
   `,
   resolvers: {
     Query: {
-      getUser: async (_: any, args: { chat_id: number }) => {
+      getUser: async (_, args) => {
         console.log('Fetching user with chat_id:', args.chat_id);
         const { data, error } = await supabase
           .from('users')
@@ -43,7 +43,7 @@ export const schema = createSchema({
 
         return data[0];
       },
-      checkUserExists: async (_: any, args: { chat_id: number }) => {
+      checkUserExists: async (_, args) => {
         console.log('Checking if user exists with chat_id:', args.chat_id);
         const { data, error } = await supabase
           .from('users')
@@ -59,7 +59,7 @@ export const schema = createSchema({
       },
     },
     Mutation: {
-      updateCoins: async (_: any, args: { chat_id: number; coins: number }) => {
+      updateCoins: async (_, args) => {
         // Update the user's coin balance
         const { data, error } = await supabase
           .from('users')

@@ -7,6 +7,7 @@ import { schema } from './schema.js';
 import supabase from './dbConfig.js';
 const yoga = createYoga({ schema });
 const server = createServer(yoga);
+
 const token = process.env.BOT_TOKEN;
 if (!token) {
   throw new Error('BOT_TOKEN is missing in environment variables');
@@ -20,6 +21,7 @@ bot.onText(/\/start/, async (msg) => {
   const firstName = msg.from?.first_name || '';
   const lastName = msg.from?.last_name || '';
   const username = `${firstName} ${lastName}`;
+
   try {
     //check if user exists in db
     const { data, error } = await supabase
@@ -71,6 +73,7 @@ bot.onText(/\/start/, async (msg) => {
     bot.sendMessage(chatId, 'An error occurred. Please try again later.');
   }
 });
+
 server.listen(4000, () => {
   console.log('server is running');
 });
