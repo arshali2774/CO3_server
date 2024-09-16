@@ -15,6 +15,7 @@ export const schema = createSchema({
     }
     type Mutation {
       updateCoins(chat_id: Int!, coins: Int!): User
+      syncCoins(chat_id: Int!, offlineCoins: Int!): User
     }
   `,
   resolvers: {
@@ -74,6 +75,41 @@ export const schema = createSchema({
         }
 
         return data;
+      },
+      // New mutation for syncing coins
+      syncCoins: async (
+        _: any,
+        args: { chat_id: number; offlineCoins: number }
+      ) => {
+        // Fetch the user's current coin balance
+        const { data, error } = await supabase
+          .from('users')
+          .select('coin_balance')
+          .eq('chat_id', args.chat_id)
+          .single();
+
+        if (error) {
+          console.error('Error fetching user coins:', error);
+          throw new Error(`Error fetching user coins: ${error.message}`);
+        }
+
+        // Calculate the new coin balance by adding the offline coins
+        const newCoinBalance = data.coin_balance + args.offlineCoins;
+
+        // Update the user's coin balance in the database
+        const { data: updatedData, error: updateError } = await supabase
+          .from('users')
+          .update({ coin_balance: newCoinBalance })
+          .eq('chat_id', args.chat_id)
+          .select('*')
+          .single();
+
+        if (updateError) {
+          console.error('Error updating user coins:', updateError);
+          throw new Error(`Error updating user coins: ${updateError.message}`);
+        }
+
+        return updatedData;
       },
     },
   },
